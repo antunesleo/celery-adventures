@@ -47,3 +47,21 @@ def trying_to_lock():
         for j in range(0, 500):
             txt.write('{}'.format(time.time()))
         txt.close()
+
+
+@app.task(base=MyTask, name='orchestrator_task')
+def orchestrator_task(task_nu):
+    print('STARTING TO RUN ALL THE {} TASKS'.format(task_nu))
+    for i in range(0, task_nu):
+        print('---------------------------------------')
+        orchestrated_task.apply((i,))
+    print('FINISHED ALL THE TASKS')
+
+
+@app.task(base=MyTask, name='orchestrated_task')
+def orchestrated_task(task_number):
+    import time
+    import random
+    print('I AM EXECUTING TASK {} '.format(task_number))
+    time.sleep(random.randint(1, 4))
+    print('FINISHED TASK {}'.format(task_number))

@@ -1,4 +1,4 @@
-from src.tasks import add, mul, long_heavy_task, trying_to_lock
+from src.tasks import add, mul, long_heavy_task, trying_to_lock, orchestrator_task
 
 
 def start_add(x, y):
@@ -34,6 +34,13 @@ def start_trying_to_lock():
         except Exception as ex:
             print(ex)
 
+def start_orchestrator_task():
+    try:
+        zas = orchestrator_task.delay(10)
+        print('task', zas)
+    except Exception as ex:
+        print(ex)
+
 
 if __name__ == '__main__':
-    start_trying_to_lock()
+    start_orchestrator_task()
