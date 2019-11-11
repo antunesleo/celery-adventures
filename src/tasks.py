@@ -1,8 +1,7 @@
 from src.interpreter import what_was_said
 from celery import Celery
 
-app = Celery('tasks', broker='pyamqp://leonardo:indev107@localhost:5672/celery-adventures',
-                      backend='redis://localhost/15')
+app = Celery('celery_stuff', broker='redis://localhost/2')
 
 
 class MyTask(app.Task):
