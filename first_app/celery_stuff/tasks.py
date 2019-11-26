@@ -3,7 +3,10 @@ from celery import Celery
 
 # Creating a celery instance.
 app = Celery('first_app', broker='redis://localhost/2')
-
+app.conf.task_routes = {
+    'celery_stuff.tasks.serve_a_beer': {'queue': 'beer'},
+    'celery_stuff.tasks.serve_a_coffee': {'queue': 'coffee'}
+}
 
 @app.task
 def serve_a_beer():
@@ -29,4 +32,27 @@ def serve_a_beer():
                     |\_|__|__|_/|
                      \_________/
           ------------------------------------------------
+          """)
+
+
+@app.task
+def serve_a_coffee():
+    """
+     This is a celery task. Just a normal function with task decorator.
+     Note that we use the decorator from a celery insance.
+    """
+    print('Getting a delicious coffee!')
+    sleep(1)
+    print("""
+          ---------------------------------
+                          )  (
+                         (   ) )
+                          ) ( (
+                     mrf_______)_
+                     .-'---------|  
+                    ( C|/\/\/\/\/|
+                     '-./\/\/\/\/|
+                       '_________'
+                        '-------'
+          ---------------------------------
           """)
