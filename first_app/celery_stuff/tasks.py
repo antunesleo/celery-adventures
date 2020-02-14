@@ -9,12 +9,12 @@ app.conf.task_routes = {
 }
 
 @app.task
-def serve_a_beer():
+def serve_a_beer(_type, size):
     """
      This is a celery task. Just a normal function with task decorator.
      Note that we use the decorator from a celery insance.
     """
-    print('Getting a delicious beer!')
+    print('Serving {} of {} beer!'.format(size, _type))
     sleep(3)
     print("""
           ------------------------------------------------
@@ -36,12 +36,12 @@ def serve_a_beer():
 
 
 @app.task
-def serve_a_coffee():
+def serve_a_coffee(_type, size):
     """
      This is a celery task. Just a normal function with task decorator.
      Note that we use the decorator from a celery insance.
     """
-    print('Getting a delicious coffee!')
+    print('Serving a {} {} coffee!'.format(size, _type))
     sleep(1)
     print("""
           ---------------------------------
